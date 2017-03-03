@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
 
       // TODO: Check on name er unique
       //Check om navn er mindst 2 bogstaver langt
-      if (strlen($name) <= 2) {
+      if ($validate_function->check_string_length($name, 2)) {
         $errors['name'] = "Navn skal være mindst 2 bogstaver langt";
       }
       if(!$validate_function->contains_only_letters($name)) {
