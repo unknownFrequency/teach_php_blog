@@ -39,7 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
     {
       $phone = $_POST['phone'];
       if(!is_numeric($phone)) {
-        $errors['phone'] = "Telefonnummeret må kun bestå af tal";
+        $errors['phone'] = ValidateFunctions::ERROR_PHONE_CONTAINS_NUMBERS;
+      } elseif(!$validate_function->check_number_length($phone, 8)) {
+        $errors['phone'] = ValidateFunctions::ERROR_PHONE_LENGTH;
       }
       // TODO: Skal være præcis 8 tal langt
     }
