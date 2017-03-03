@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+<?php echo session_id() ?>
 <!doctype html>
 
 <html lang="en">
@@ -9,9 +11,13 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 
 </head>
-
+<!-- TODO: Gem data selvom der er errors i formen, så brugeren ikke skal genindtaste korrekte felter¿ -->
 <body>
     <div class="container">
+        <div class="errors">
+            <?php
+            ?>
+        </div>
         <form id="contact" action="RegisterClass.php" method="post">
             <h3>Hshop register form</h3>
             <fieldset>

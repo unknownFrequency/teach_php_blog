@@ -2,13 +2,15 @@
 include('ValidationFunctions.php');
 // instantiate Class ValidateFunctions.php som er inkluderet ovenfor
 $validate_function = new ValidateFunctions();
+session_start();
+
 
 $errors = array(); // samme som $errors = [];
 // En pet array med de values som er i drop-down menuen
 $allowed_pets = ['dog', 'cat', 'rat', 'bird'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
-    if (isset($_POST['name'])){
+    if (isset($_POST['name'])) {
       $name = $_POST['name'];
 
       // TODO: Check on name er unique
@@ -37,12 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
     }
     if (isset($_POST['phone'])) {
       $phone = $_POST['phone'];
+
       if(!is_numeric($phone)) {
         $errors['phone'] = ValidateFunctions::ERROR_PHONE_CONTAINS_NUMBERS;
       } elseif(!$validate_function->check_number_length($phone, 8)) {
         $errors['phone'] = ValidateFunctions::ERROR_PHONE_LENGTH;
       }
-      // TODO: Skal være præcis 8 tal langt
     }
     if (isset($_POST['description'])) {
       $description = $_POST['description'];
@@ -53,20 +55,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
     if (isset($_POST['password_again'])) {
       $password_again = $_POST['password_again'];
     }
-    // Check om passwords er ens
     if(isset($password, $password_again)) {
+      // TODO: hash password
       if($password != $password_again) {
         $errors['password'] = ValidateFunctions::ERROR_PASSWORDS_DONT_MATCH;
       } else if(strlen($password) < 4) {
         $errors['password'] = ValidateFunctions::ERROR_PASSWORD_LENGTH;
       }
     }
-    // print key => value of errors
-    // eg. $errors['password'] <-- $key
-    // "Password er ikke ens" <-- $error (value)
     if(!empty($errors)) {
-      foreach($errors as $key => $error) {
-        echo "<strong>" . strtoupper($key) . ":</strong> " . $error . "<br />";
-      }
+      $validate_function->error_handling($errors);
+      header('Location: register.php');
     }
+
 }
