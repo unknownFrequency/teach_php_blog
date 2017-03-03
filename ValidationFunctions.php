@@ -1,9 +1,12 @@
 <?php
 class ValidateFunctions
 {
+  const ERROR_NAME_LENGTH            = "Navn skal være mindst 2 bogstaver langt";
   const ERROR_NAME_NOT_ALPHA         = "Navn må kun bestå af bogstaver"; // Virker kun inden i en Class
   const ERROR_PHONE_CONTAINS_NUMBERS = "Telefonnummeret må kun bestå af tal";
   const ERROR_PHONE_LENGTH           = "Telefonnummeret skal være 8 tal langt";
+  const ERROR_PASSWORDS_DONT_MATCH   = "Password er ikke ens";
+  const ERROR_PASSWORD_LENGTH        = "Password skal være mindst 4 tegn langt";
 
   public function contains_only_letters($name)
   {

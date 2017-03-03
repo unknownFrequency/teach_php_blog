@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
       // TODO: Check on name er unique
       //Check om navn er mindst 2 bogstaver langt
       if ($validate_function->check_string_length($name, 2)) {
-        $errors['name'] = "Navn skal være mindst 2 bogstaver langt";
+        $errors['name'] = ValidateFunctions::ERROR_NAME_LENGTH;
       }
       if(!$validate_function->contains_only_letters($name)) {
         $errors['name'] = ValidateFunctions::ERROR_NAME_NOT_ALPHA;
@@ -35,8 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
         $errors['pet'] = "Du må være hacker!";
       }
     }
-    if (isset($_POST['phone']))
-    {
+    if (isset($_POST['phone'])) {
       $phone = $_POST['phone'];
       if(!is_numeric($phone)) {
         $errors['phone'] = ValidateFunctions::ERROR_PHONE_CONTAINS_NUMBERS;
@@ -51,16 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
     if (isset($_POST['password'])) {
       $password = $_POST['password'];
     }
-    if (isset($_POST['password_again']))
-    {
+    if (isset($_POST['password_again'])) {
       $password_again = $_POST['password_again'];
     }
     // Check om passwords er ens
     if(isset($password, $password_again)) {
       if($password != $password_again) {
-        $errors['password'] = "Password er ikke ens";
+        $errors['password'] = ValidateFunctions::ERROR_PASSWORDS_DONT_MATCH;
       } else if(strlen($password) < 4) {
-        $errors['password'] = "Password skal være mindst 4 tegn langt";
+        $errors['password'] = ValidateFunctions::ERROR_PASSWORD_LENGTH;
       }
     }
     // print key => value of errors
